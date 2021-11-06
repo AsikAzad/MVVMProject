@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
 
         subscribeObservers()
         viewModel.setStateEvent(MainStateEvent.GetBlogEvents)
+        viewModel.setStateEvent(MainStateEvent.AddBlogEvents)
+
     }
 
     private fun subscribeObservers(){

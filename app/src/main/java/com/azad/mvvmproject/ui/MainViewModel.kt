@@ -16,6 +16,7 @@ class MainViewModel
     private val savedStateHandle: SavedStateHandle
 ): ViewModel(){
 
+    //Can be generic type of return data
     private val _dataState: MutableLiveData<DataState<List<Blog>>> = MutableLiveData()
 
     val dataState: LiveData<DataState<List<Blog>>>
@@ -31,6 +32,9 @@ class MainViewModel
                         }
                         .launchIn(viewModelScope)
                 }
+                is MainStateEvent.AddBlogEvents ->{
+                    mainRepository.addBlog(blog = Blog(1, "ABC", "XYZ", "Url", "Cat"))
+                }
                 is MainStateEvent.None -> {
 
                 }
@@ -39,7 +43,9 @@ class MainViewModel
     }
 }
 
+//For different type of state handle
 sealed class MainStateEvent{
     object GetBlogEvents: MainStateEvent()
+    object AddBlogEvents: MainStateEvent()
     object None: MainStateEvent()
 }

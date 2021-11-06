@@ -31,4 +31,14 @@ constructor(
             emit(DataState.Error(e))
         }
     }
+
+    suspend fun addBlog(blog: Blog): Flow<DataState<String>> = flow {
+        emit(DataState.Loading)
+        try {
+            blogDao.insert(cacheMapper.mapToEntity(blog))
+            emit(DataState.Success("Data added."))
+        }catch (e: Exception){
+            emit(DataState.Error(e))
+        }
+    }
 }
